@@ -9,11 +9,12 @@
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:order_id) %></th>
+      <th><%= model_class.human_attribute_name(:content) %></th>
       <th><%= model_class.human_attribute_name(:vendor_id) %></th>
       <th><%= model_class.human_attribute_name(:contract_id) %></th>
       <th><%= model_class.human_attribute_name(:unit_price) %></th>
+      <th><%= model_class.human_attribute_name(:unit_count) %></th>
       <th><%= model_class.human_attribute_name(:amount) %></th>
-      <th><%= model_class.human_attribute_name(:content) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -21,11 +22,17 @@
     <% @orders.each do |order| %>
       <tr>
         <td><%= order.order_id %></td>
-        <td><%= order.vendor_id %></td>
-        <td><%= order.contract_id %></td>
-        <td><%= order.unit_price %></td>
-        <td><%= order.amount %></td>
         <td><%= order.content %></td>
+        <td><%= Vendor.all.find(order.vendor_id).name %></td>
+        <% if !order.contract_id.nil? %>
+          <td><%= Contract.all.find(order.contract_id).title %></td>
+        <% else %>
+          <td><%= order.contract_id %></td>
+        <% end %>
+        <td><%= order.unit_price %></td>
+        <td><%= order.unit_count %></td>
+        <td><%= order.unit_price*order.unit_count %></td>
+        
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_order_path(order), :class => 'btn btn-default btn-xs' %>

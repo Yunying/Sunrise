@@ -10,7 +10,7 @@
       <a class="list-group-item active">
         基本信息
       </a>
-      <a href="#" class="list-group-item">合同名称：<%= @contract.title %></a>
+      <a href="#" class="list-group-item">合同名称：<%= best_in_place @contract, :title %></a>
       <a class="list-group-item show_client">客户公司：<%= @client.name %></a>
       <div class="hidden-panel">
         <a class="list-group-item">公司地址：<%= @client.address %> </a>
@@ -19,7 +19,8 @@
       </div>
       <a href="#" class="list-group-item">签约日期：<%= @contract.sign_date %></a>
       <a href="#" class="list-group-item">订单成本￥：<%= @contract_amount %></a>
-      <a href="#" class="list-group-item">合同金额￥：<%= @contract.amount %></a>
+      <a href="#" class="list-group-item">其它成本￥：<%= best_in_place @contract, :cost %> </a>
+      <a href="#" class="list-group-item edit">合同金额￥：<%= best_in_place @contract, :amount %></a>
     </div>
   </div>
 
@@ -42,6 +43,7 @@
         <%= f.order_id %> </br>
         <%= f.content %> </br>
         <%= @vendors.find(f.vendor_id).name %> </br>
+        <a> 订单总价：<%= f.unit_price*f.unit_count %> </a>
       </div>
     </div>
   <% end %>
@@ -55,4 +57,11 @@
                 :class => 'btn btn-danger' %>
   <%= link_to "添加一张订单", new_order_path(:contract_id => @contract.id), :class => "button btn btn-primary"  %><br />
 </div>
+
+<script>
+$(document).ready(function() {
+  /* Activating Best In Place */
+  jQuery(".best_in_place").best_in_place();
+});
+</script>
 

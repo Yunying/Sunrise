@@ -51,6 +51,7 @@ class ContractsController < ApplicationController
   # PATCH/PUT /contracts/1
   # PATCH/PUT /contracts/1.json
   def update
+    @contract = Contract.find(params[:id])
     respond_to do |format|
       if @contract.update(contract_params)
         format.html { redirect_to @contract, notice: 'Contract was successfully updated.' }
@@ -80,6 +81,6 @@ class ContractsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def contract_params
-      params.require(:contract).permit(:title, :client_id, :sign_date, :description, :amount)
+      params.require(:contract).permit(:title, :client_id, :sign_date, :description, :cost, :amount)
     end
 end
