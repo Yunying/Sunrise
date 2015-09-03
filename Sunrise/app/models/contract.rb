@@ -1,2 +1,3 @@
-class Contract < ActiveRecord::Bases
+class Contract < ActiveRecord::Base
+	has_many :orders
 end

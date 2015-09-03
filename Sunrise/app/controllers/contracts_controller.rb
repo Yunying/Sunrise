@@ -5,6 +5,7 @@ class ContractsController < ApplicationController
   # GET /contracts.json
   def index
     @contracts = Contract.all
+    @clients = Client.all
   end
 
   # GET /contracts/1
@@ -15,10 +16,12 @@ class ContractsController < ApplicationController
   # GET /contracts/new
   def new
     @contract = Contract.new
+    @clients = Client.all.order("name ASC")
   end
 
   # GET /contracts/1/edit
   def edit
+    @clients = Client.all
   end
 
   # POST /contracts

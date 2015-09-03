@@ -10,11 +10,11 @@
     <%= error_span(@contract[:title]) %>
   </div>
   <div class="form-group">
-    <%= f.text_field :client_id, :placeholder => "客户名称", class: "form-control" %>
+    <%= f.collection_select :client_id, @clients, :id, :name, {:prompt=>"客户公司名称"}, {:class =>"form-control", :placeholder => "客户名称"} %>
     <%= error_span(@contract[:client_id]) %>
   </div>
   <div class="form-group">
-    <%= f.text_field :sign_date, :placeholder => "  签订日期", class: "form-control datepicker2" %>
+    <%= f.text_field :sign_date, :placeholder => "签订日期", class: "form-control datepicker2" %>
     <%= error_span(@contract[:sign_date]) %>
   </div>
   <div class="form-group">

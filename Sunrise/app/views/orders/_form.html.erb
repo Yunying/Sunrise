@@ -1,0 +1,37 @@
+# encoding: utf-8
+
+<div class="panel panel-info", style="margin: 0px auto; max-width: 800px;">
+  <div class="panel-heading">新订单信息</div>
+  <div class="panel-body">
+
+    <%= form_for @order do |f| %>
+  <div class="form-group">
+    <%= f.text_field :order_id, :placeholder => "订单号", class: "form-control" %>
+    <%= error_span(@order[:order_id]) %>
+  </div>
+  <div class="form-group">
+    <%= f.collection_select :vendor_id, @vendors, :id, :name, {}, {:class =>"form-control", :placeholder => "供应商名称"} %>
+    <%= error_span(@order[:client_id]) %>
+  </div>
+  <div class="form-group">
+    <%= f.text_area :content, :placeholder => "订单内容", class: "form-control" %>
+    <%= error_span(@order[:content]) %>
+  </div>
+  <div class="form-group">
+    <div class="input-group">
+    <div class="input-group-addon">￥</div>
+    <%= f.number_field :unit_price, :placeholder => "单价", class: "form-control" %>
+    <%= error_span(@order[:unit_price]) %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.number_field :unit_count, :placeholder => "数量", class: "form-control" %>
+    <%= error_span(@order[:unit_count]) %>
+  </div>
+  <div style="margin-top: 20px;">
+    <%= f.button :submit, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                  orders_path, :class => 'btn btn-default' %>
+  </div>
+<% end %>
+

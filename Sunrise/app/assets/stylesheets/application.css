@@ -114,3 +114,12 @@
   background-color: #1CA347;
   border-color: #1CA347;
 }
+
+.index-content{
+  max-width:1000px;
+  margin:0px auto;
+}
+
+.index-title{
+  font-family: "Arial";
+}
