@@ -10,17 +10,22 @@ class OrdersController < ApplicationController
   # GET /orders/1
   # GET /orders/1.json
   def show
+    @vendors = Vendor.all
   end
 
   # GET /orders/new
   def new
     @order = Order.new
     @vendors = Vendor.all.order("name ASC")
+    @contract = params[:contract_id]
+    @contracts = Contract.all.order("title ASC")
   end
 
   # GET /orders/1/edit
   def edit
     @vendors = Vendor.all.order("name ASC")
+    @contract = params[:contract_id]
+    @contracts = Contract.all.order("title ASC")
   end
 
   # POST /orders
@@ -71,6 +76,6 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:order_id, :vendor_id, :unit_price, :unit_count, :amount, :content)
+      params.require(:order).permit(:order_id, :contract_id, :vendor_id, :unit_price, :unit_count, :amount, :content)
     end
 end

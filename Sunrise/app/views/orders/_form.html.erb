@@ -5,12 +5,23 @@
   <div class="panel-body">
 
     <%= form_for @order do |f| %>
+    <% if !@contract.nil? %>
+      <div class="form-group">
+        <%= f.collection_select :contract_id, @contracts, :id, :title, {:prompt=>@contracts.find(@contract).title}, {:class =>"form-control"} %>
+        <%= error_span(@order[:contract_id]) %>
+      </div>
+    <% else %>
+      <div class="form-group">
+        <%= f.collection_select :contract_id, @contracts, :id, :title, {:prompt=>"相关合同"}, {:class =>"form-control"} %>
+        <%= error_span(@order[:contract_id]) %>
+      </div>
+    <% end %>
   <div class="form-group">
     <%= f.text_field :order_id, :placeholder => "订单号", class: "form-control" %>
     <%= error_span(@order[:order_id]) %>
   </div>
   <div class="form-group">
-    <%= f.collection_select :vendor_id, @vendors, :id, :name, {}, {:class =>"form-control", :placeholder => "供应商名称"} %>
+    <%= f.collection_select :vendor_id, @vendors, :id, :name, {:prompt=>"供应商名称"}, {:class =>"form-control"} %>
     <%= error_span(@order[:client_id]) %>
   </div>
   <div class="form-group">

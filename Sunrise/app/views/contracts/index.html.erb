@@ -18,7 +18,7 @@
   </thead>
   <tbody>
     <% @contracts.each do |contract| %>
-      <tr>
+      <tr data-link="<%= contract_path(contract) %>">
         <td><%= contract.title %></td>
         <td><%= @clients.find(contract.client_id).name %></td>
         <td><%= contract.sign_date %></td>

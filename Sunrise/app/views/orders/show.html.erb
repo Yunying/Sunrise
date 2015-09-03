@@ -4,16 +4,19 @@
 </div>
 
 <dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:order_id) %>:</strong></dt>
+  <dt><strong>订单名称</strong></dt>
   <dd><%= @order.order_id %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:vendor_id) %>:</strong></dt>
-  <dd><%= @order.vendor_id %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:unit_price) %>:</strong></dt>
-  <dd><%= @order.unit_price %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:amount) %>:</strong></dt>
-  <dd><%= @order.amount %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:content) %>:</strong></dt>
+  <dt><strong>订单内容</strong></dt>
   <dd><%= @order.content %></dd>
+  <dt><strong>供应商</strong></dt>
+  <dd><%= @vendors.find(@order.vendor_id).name %></dd>
+  <dt><strong>物品单价</strong></dt>
+  <dd><%= @order.unit_price %></dd>
+  <dt><strong>物品数量</strong></dt>
+  <dd><%= @order.unit_count %></dd>
+  <dt><strong>订单总价</strong></dt>
+  <dd><%= @order.unit_count*@order.unit_price %></dd>
+  
 </dl>
 
 <%= link_to t('.back', :default => t("helpers.links.back")),

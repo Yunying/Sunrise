@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   resources :vendors
   resources :orders
-  resources :contracts
+  resources :contracts do
+    resources :orders
+  end
   resources :clients
   resources :invoices
   devise_for :users, controllers: { sessions: "users/sessions" }

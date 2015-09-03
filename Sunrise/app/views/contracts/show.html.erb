@@ -1,27 +1,37 @@
 <%- model_class = Contract -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+<div class="index-content">
+  <div class="page-header">
+    <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+  </div>
+
+  <dl>
+    <dt><strong><%= model_class.human_attribute_name(:title) %>:</strong></dt>
+    <dd><%= @contract.title %></dd>
+    <dt><strong><%= model_class.human_attribute_name(:client_id) %>:</strong></dt>
+    <dd><%= @contract.client_id %></dd>
+    <dt><strong><%= model_class.human_attribute_name(:sign_date) %>:</strong></dt>
+    <dd><%= @contract.sign_date %></dd>
+    <dt><strong><%= model_class.human_attribute_name(:description) %>:</strong></dt>
+    <dd><%= @contract.description %></dd>
+    <dt><strong><%= model_class.human_attribute_name(:amount) %>:</strong></dt>
+    <dd><%= @contract.amount %></dd>
+  </dl>
+
+  <% @orders.each do |f| %>
+    <p> Here's an order </p>
+
+  <% end %>
+
+
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+                contracts_path, :class => 'btn btn-default'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                    edit_contract_path(@contract), :class => 'btn btn-default' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                contract_path(@contract),
+                :method => 'delete',
+                :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                :class => 'btn btn-danger' %>
+
+  <%= link_to "添加一张订单", new_order_path(:contract_id => @contract.id), :class => "button btn btn-primary"  %><br />
 </div>
-
-<dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:title) %>:</strong></dt>
-  <dd><%= @contract.title %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:client_id) %>:</strong></dt>
-  <dd><%= @contract.client_id %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:sign_date) %>:</strong></dt>
-  <dd><%= @contract.sign_date %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:description) %>:</strong></dt>
-  <dd><%= @contract.description %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:amount) %>:</strong></dt>
-  <dd><%= @contract.amount %></dd>
-</dl>
-
-<%= link_to t('.back', :default => t("helpers.links.back")),
-              contracts_path, :class => 'btn btn-default'  %>
-<%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_contract_path(@contract), :class => 'btn btn-default' %>
-<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              contract_path(@contract),
-              :method => 'delete',
-              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-              :class => 'btn btn-danger' %>
