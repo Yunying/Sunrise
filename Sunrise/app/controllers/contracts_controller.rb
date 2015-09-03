@@ -13,6 +13,12 @@ class ContractsController < ApplicationController
   def show
     @contract = Contract.all.find(params[:id])
     @orders = @contract.orders
+    @contract_amount = 0
+    @orders.each do |order|
+      @contract_amount += order.unit_price*order.unit_count
+    end
+    @vendors = Vendor.all
+    @client = Client.all.find(@contract.client_id)
   end
 
   # GET /contracts/new

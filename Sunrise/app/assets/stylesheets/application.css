@@ -123,3 +123,11 @@
 .index-title{
   font-family: "Arial";
 }
+
+.contract-order-panel {
+   margin-bottom:20px;
+}
+
+.hidden-panel .list-group-item {
+  background-color:#CBE2F0;
+}

@@ -21,3 +21,10 @@ jQuery(function($) {
 		window.location = this.dataset.link
 	});
 })
+
+$(document).ready(function(){
+	$(".hidden-panel").hide();
+    $(".show_client").click(function(){
+        $(".hidden-panel").slideToggle();
+    });
+});
