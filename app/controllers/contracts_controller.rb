@@ -1,10 +1,11 @@
 class ContractsController < ApplicationController
+  helper_method :sort_column, :sort_direction
   before_action :set_contract, only: [:show, :edit, :update, :destroy]
 
   # GET /contracts
   # GET /contracts.json
   def index
-    @contracts = Contract.search(params[:search])
+    @contracts = Contract.search(params[:search]).order(sort_column + " " + sort_direction)
     @clients = Client.all
   end
 
@@ -85,5 +86,13 @@ class ContractsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def contract_params
       params.require(:contract).permit(:title, :client_id, :sign_date, :description, :cost, :amount)
+    end
+
+    def sort_column
+      Contract.column_names.include?(params[:sort]) ? params[:sort] : "title"
+    end
+    
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
     end
 end

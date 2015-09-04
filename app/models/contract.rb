@@ -5,7 +5,7 @@ class Contract < ActiveRecord::Base
 
 	def self.search(search)
 	  if search
-	    where('title LIKE ? OR sign_date LIKE ?', "%#{search}%", "%#{search}%")
+	    where('title LIKE ? OR sign_date LIKE ?', "%#{search}%", "%#{search}-%")
 	  else
 	    all
 	  end
