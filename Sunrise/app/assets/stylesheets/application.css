@@ -13,6 +13,7 @@
  *= require_tree .
  *= require_self
  *= require devise_bootstrap_views
+ *= require twitter-bootstrap-static/sprites
  *= require animate
  *= require bootstrap-datepicker3
  */
@@ -130,4 +131,12 @@
 
 .hidden-panel .list-group-item {
   background-color:#CBE2F0;
+}
+
+.hidden-invoice-panel .list-group-item {
+  background-color:#CBE2F0;
+}
+
+.note-input {
+  margin-bottom:10px;
 }

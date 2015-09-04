@@ -5,10 +5,11 @@
 </div>
 
 <div style="max-width: 1500px; margin:0px auto;">
-<table class="table table-striped", style="font-size: 20px; margin:0px auto;">
+<table class="table table-striped", style="font-size: 10px; margin:0px auto;">
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:client_id) %></th>
+      <th><%= model_class.human_attribute_name(:contract_id) %></th>
       <th><%= model_class.human_attribute_name(:invoice_number) %></th>
       <th><%= model_class.human_attribute_name(:invoice_date) %></th>
       <th><%= model_class.human_attribute_name(:total_number) %></th>
@@ -20,6 +21,7 @@
     <% @invoices.each do |invoice| %>
       <tr>
         <td><%= invoice.client_id %></td>
+        <td><%= invoice.contract_id %></td>
         <td><%= invoice.invoice_number %></td>
         <td><%= invoice.invoice_date %></td>
         <td><%= invoice.total_number %></td>

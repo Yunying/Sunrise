@@ -7,7 +7,7 @@
     <%= form_for @order do |f| %>
     <% if !@contract.nil? %>
       <div class="form-group">
-        <%= f.collection_select :contract_id, @contracts, :id, :title, {:prompt=>@contracts.find(@contract).title}, {:class =>"form-control"} %>
+        <%= f.collection_select :contract_id, @contracts, :id, :title, {:prompt=>true, :selected=>@contract}, {:class =>"form-control"} %>
         <%= error_span(@order[:contract_id]) %>
       </div>
     <% else %>

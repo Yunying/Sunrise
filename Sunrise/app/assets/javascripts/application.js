@@ -31,3 +31,15 @@ $(document).ready(function(){
         $(".hidden-panel").slideToggle();
     });
 });
+
+$(document).ready(function(){
+    $(".show-invoice").click(function(){
+        $(".hidden-invoice-panel").slideToggle();
+    });
+});
+
+$(document).ready(function(){
+    $(".order-heading").click(function(){
+        $(".order-panel").slideToggle();
+    });
+});

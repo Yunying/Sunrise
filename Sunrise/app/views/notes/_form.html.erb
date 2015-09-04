@@ -1,0 +1,14 @@
+<%= simple_form_for @note, :html => { :class => 'form-horizontal' } do |f| %>
+  <%= f.input :content %>
+  <%= error_span(@note[:content]) %>
+  <%= f.input :contract_id %>
+  <%= error_span(@note[:contract_id]) %>
+  <%= f.input :invoice_id %>
+  <%= error_span(@note[:invoice_id]) %>
+  <%= f.input :order_id %>
+  <%= error_span(@note[:order_id]) %>
+
+  <%= f.button :submit, :class => 'btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                notes_path, :class => 'btn btn-default' %>
+<% end %>

@@ -19,6 +19,9 @@ class ContractsController < ApplicationController
     end
     @vendors = Vendor.all
     @client = Client.all.find(@contract.client_id)
+    @invoice = @contract.invoices
+    @note = Note.new
+    @notes = @contract.notes
   end
 
   # GET /contracts/new

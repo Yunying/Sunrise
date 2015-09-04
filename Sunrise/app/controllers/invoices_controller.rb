@@ -15,10 +15,23 @@ class InvoicesController < ApplicationController
   # GET /invoices/new
   def new
     @invoice = Invoice.new
+    @contracts = Contract.all
+    @contract = params[:contract_id]
+    @client = params[:client_id]
+    @vendor = params[:vendor_id]
+    @order = params[:order_id]
+    @status = params[:status]
+    @amount = @contracts.find(@contract).amount
   end
 
   # GET /invoices/1/edit
   def edit
+    @contracts = Contract.all
+    @contract = params[:contract_id]
+    @client = params[:client_id]
+    @vendor = params[:vendor_id]
+    @order = params[:order_id]
+    @invoice.contract_id = @contract
   end
 
   # POST /invoices
@@ -69,6 +82,7 @@ class InvoicesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def invoice_params
-      params.require(:invoice).permit(:client_id, :invoice_number, :invoice_date, :total_number)
+      params.require(:invoice).permit(:client_id, :vendor_id, :contract_id,:invoice_number, 
+        :invoice_date, :total_number, :type, :status,  :order_id)
     end
 end

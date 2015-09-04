@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
+  resources :notes
   resources :vendors
   resources :orders
   resources :contracts do
     resources :orders
+    resources :invoices
+    resources :notes
   end
   resources :clients
   resources :invoices

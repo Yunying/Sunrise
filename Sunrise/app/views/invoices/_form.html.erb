@@ -3,21 +3,49 @@
        <div class="panel-heading">New Invoice</div>
        <div class="panel-body">
           <%= form_for @invoice do |f| %>
+            <% if !@contract.nil? && @order.nil? %>
+              <div class="form-group">
+                <%= f.collection_select :contract_id, @contracts, :id, :title, {:prompt=>true, :selected => @contract}, {:class =>"form-control"} %>
+                <%= error_span(@invoice[:contract_id]) %>
+              </div>
+
+              <div class="form-group">
+                <%= f.text_field :client_id, :value => Client.all.find(@client).name, :readonly => true, class: "form-control" %>
+                <%= f.hidden_field :client_id, :value => @client %>
+                <%= f.hidden_field :status, :value => @status %>
+                <%= error_span(@invoice[:client_id]) %>
+              </div>
+
+            <% elsif @contract.nil? && !@order.nil? %>
+              <div class="form-group">
+                <%= f.collection_select :order_id, Order.all, :id, :title, {:prompt=>@Order.all.find(@order).order_id}, {:class =>"form-control", :readonly=>true} %>
+                <%= error_span(@invoice[:order_id]) %>
+              </div>
+              <div class="form-group">
+                <%= f.text_field :vendor_id, :value => Vendor.all.find(@vendor).name, :readonly => true, class: "form-control" %>
+                <%= error_span(@invoice[:vendor_id]) %>
+              </div>
+
+            <% else %>
+              <div class="form-group">
+                <%= f.collection_select :contract_id, @contracts, :id, :title, {:prompt=>"相关合同"}, {:class =>"form-control"} %>
+                <%= error_span(@invoice[:contract_id]) %>
+                <%= f.collection_select :client_id, Client.all, :id, :name, {:prompt=>"客户公司"}, {:class =>"form-control"} %>
+                <%= error_span(@invoice[:client_id]) %>
+              </div>
+            <% end %>
+            
             <div class="form-group">
-              <%= f.text_field :client_id, :placeholder => "Client", class: "form-control" %>
-              <%= error_span(@invoice[:client_id]) %>
-            </div>
-            <div class="form-group">
-              <%= f.number_field :invoice_number, :placeholder => "Invoice Number",class: "form-control",
+              <%= f.number_field :invoice_number, :placeholder => "发票号码",class: "form-control",
                :id => "datetimepicker"%>
               <%= error_span(@invoice[:invoice_number]) %>
             </div>
             <div class="form-group">
-              <%= f.text_field :invoice_date,  :placeholder => "  Invoice Date", class: "form-control datepicker" %>
+              <%= f.text_field :invoice_date,  :placeholder => "开票日期", class: "form-control datepicker2" %>
               <%= error_span(@invoice[:invoice_date]) %>
             </div>
             <div class="form-group">
-              <%= f.number_field :total_number, :placeholder => "Total Amount",class: "form-control" %>
+              <%= f.text_field :total_number, :value => @amount, class: "form-control" %>
               <%= error_span(@invoice[:total_number]) %>
             </div>
             <div style="margin-top: 20px;">
@@ -29,11 +57,14 @@
 
        </div>
         </div>
-    <script type="text/javascript">
-      $(document).ready(function(){
-        $('.datepicker').datepicker();
-      });
-    </script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.datepicker2').datepicker({
+      format: 'yyyy/mm/dd',
+      startDate: '-3d'
+    });
+  });
+</script>
 
 
 
