@@ -19,7 +19,7 @@
   </thead>
   <tbody>
     <% @invoices.each do |invoice| %>
-      <tr>
+      <tr data-link="<%= invoice_path(invoice) %>">
         <td><%= invoice.client_id %></td>
         <td><%= invoice.contract_id %></td>
         <td><%= invoice.invoice_number %></td>

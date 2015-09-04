@@ -21,6 +21,9 @@ gem 'yelp', require: 'yelp'
 gem 'bootstrap-datepicker-rails'
 gem 'jquery-ui-rails'
 gem "best_in_place"
+gem 'prawn'
+gem 'prawnto'
+gem "prawnto_2", :require => "prawnto"
 
 
 group :development, :test do

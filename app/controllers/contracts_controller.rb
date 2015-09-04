@@ -1,12 +1,21 @@
 class ContractsController < ApplicationController
   helper_method :sort_column, :sort_direction
   before_action :set_contract, only: [:show, :edit, :update, :destroy]
+  require "prawn"
 
   # GET /contracts
   # GET /contracts.json
   def index
     @contracts = Contract.search(params[:search]).order(sort_column + " " + sort_direction)
     @clients = Client.all
+    respond_to do |format|
+    format.html
+      format.pdf do
+        pdf = Prawn::Document.new
+        pdf.text "Hello World"
+        send_data pdf.render, :filename => 'products.pdf', :type => 'application/pdf', :disposition => 'inline'
+      end
+    end
   end
 
   # GET /contracts/1

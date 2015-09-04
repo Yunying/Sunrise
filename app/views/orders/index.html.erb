@@ -20,7 +20,7 @@
   </thead>
   <tbody>
     <% @orders.each do |order| %>
-      <tr>
+      <tr data-link="<%= order_path(order) %>">
         <td><%= order.order_id %></td>
         <td><%= order.content %></td>
         <td><%= Vendor.all.find(order.vendor_id).name %></td>
