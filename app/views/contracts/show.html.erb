@@ -43,15 +43,25 @@
           发票信息
         </a>
         <% @invoice.each do |f| %>
-          <a class="list-group-item show-invoice">发票号码：<%= f.invoice_number %></a>
+          <div class="list-group-item show-invoice">
+            发票号码：<%= f.invoice_number %>
+            <%= link_to "删除", {:controller=>:invoices, :action=>'destroy', :id=>f.id}, :method=>:delete, :class => 'btn btn-xs btn-danger', :style=>"float:right;" %>
+          </div>
           <div class="hidden-invoice-panel">
             <a class="list-group-item">发票金额：<%= f.total_number %> </a>
             <a class="list-group-item">开票日期：<%= f.invoice_date %> </a>
-            <a class="list-group-item">状态：<%= f.status %> </a>  
+            <div class="list-group-item">
+              状态：<%= f.status %>
+              <% if f.status == PENDING_CONTRACT_STATUS %>
+                <%= link_to "付款", 
+                  {:controller=>:invoices, :action=>'update_status', :id=>f.id}, 
+                  :method=>:put, :class => 'btn btn-xs btn-warning', :style=>"float:right;" %>
+              <% end %>
+            </div>  
           </div>
         <% end %>
       </div>
-      <%= link_to "开发票", new_invoice_path(:contract_id => @contract.id, :type => CONTRACT_INVOICE, :status => PENDING_CONTRACT_STATUS, :client_id => @client.id), :class => "button btn btn-primary"  %><br />
+      <%= link_to "开发票", new_invoice_path(:contract_id => @contract.id, :type => CONTRACT_INVOICE, :status => PENDING_CONTRACT_STATUS, :client_id => @client.id), :class => "button btn btn-primary"%><br />
     </div>
 
     <div class="col-md-4">
@@ -101,9 +111,19 @@
             </div>
                 
             <% f.invoices.each do |invoice| %>
-              <a class="list-group-item">发票号码：<%= invoice.invoice_number %></a>
+              <div class="list-group-item">
+                发票号码：<%= invoice.invoice_number %>
+                <%= link_to "删除", {:controller=>:invoices, :action=>'destroy', :id=>invoice.id}, :method=>:delete, :class => 'btn btn-xs btn-danger', :style=>"float:right;" %>
+              </div>
               <a class="list-group-item">发票金额：<%= invoice.total_number %></a>
               <a class="list-group-item">开票日期：<%= invoice.invoice_date %></a>
+              <div class="list-group-item">发票状态：<%= invoice.status %>
+                <% if invoice.status == PENDING_ORDER_STATUS %>
+                <%= link_to "收款", 
+                  {:controller=>:invoices, :action=>'update_status', :id=>invoice.id}, 
+                  :method=>:put, :class => 'btn btn-xs btn-warning', :style=>"float:right;"%>
+              <% end %>
+              </div>
             <% end %>
                 
           </div>

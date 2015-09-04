@@ -10,7 +10,11 @@ Rails.application.routes.draw do
     resources :notes
   end
   resources :clients
-  resources :invoices
+  resources :invoices do
+    member do
+      put 'update_status'
+    end
+  end
   devise_for :users, controllers: { sessions: "users/sessions" }
 
   # The priority is based upon order of creation: first created -> highest priority.

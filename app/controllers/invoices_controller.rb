@@ -7,6 +7,16 @@ class InvoicesController < ApplicationController
     @invoices = Invoice.all
   end
 
+  def update_status
+    @invoice = Invoice.find(params[:id])
+    if !@invoice.contract_id.nil?
+      @invoice.update_attribute(:status, FINISHED_CONTRACT_STATUS)
+    elsif !@invoice.order_id.nil?
+      @invoice.update_attribute(:status, FINISHED_ORDER_STATUS)
+    end
+    redirect_to :back
+  end
+
   # GET /invoices/1
   # GET /invoices/1.json
   def show
@@ -79,10 +89,7 @@ class InvoicesController < ApplicationController
   # DELETE /invoices/1.json
   def destroy
     @invoice.destroy
-    respond_to do |format|
-      format.html { redirect_to invoices_url, notice: 'Invoice was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to :back
   end
 
   private
