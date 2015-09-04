@@ -43,3 +43,19 @@ $(document).ready(function(){
         $(".order-panel").slideToggle();
     });
 });
+
+$(document).ready(function(){
+    $(".mouseover-show").mouseover(function(){
+        $(".mouseover-dropdown").slideToggle();
+    });
+    $(".mouseover-show").mouseout(function(){
+        $(".mouseover-dropdown").slideToggle();
+    });
+
+    $(".mouseover-show2").mouseover(function(){
+        $(".mouseover-dropdown2").slideToggle();
+    });
+    $(".mouseover-show2").mouseout(function(){
+        $(".mouseover-dropdown2").slideToggle();
+    });
+});
