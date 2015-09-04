@@ -1,0 +1,49 @@
+<%- model_class = Invoice -%>
+<div class="index-content">
+<div class="index-title">
+  <h1> Invoices </h1>
+</div>
+
+<div style="max-width: 1500px; margin:0px auto;">
+<table class="table table-striped", style="font-size: 10px; margin:0px auto;">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:client_id) %></th>
+      <th><%= model_class.human_attribute_name(:contract_id) %></th>
+      <th><%= model_class.human_attribute_name(:invoice_number) %></th>
+      <th><%= model_class.human_attribute_name(:invoice_date) %></th>
+      <th><%= model_class.human_attribute_name(:total_number) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @invoices.each do |invoice| %>
+      <tr>
+        <td><%= invoice.client_id %></td>
+        <td><%= invoice.contract_id %></td>
+        <td><%= invoice.invoice_number %></td>
+        <td><%= invoice.invoice_date %></td>
+        <td><%= invoice.total_number %></td>
+        <td><%=l invoice.created_at %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_invoice_path(invoice), :class => 'btn btn-default btn-xs' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      invoice_path(invoice),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-xs btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_invoice_path,
+            :class => 'btn btn-large btn-primary' %>
+
+</div>
