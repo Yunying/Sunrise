@@ -19,9 +19,14 @@ class InvoicesController < ApplicationController
     @contract = params[:contract_id]
     @client = params[:client_id]
     @vendor = params[:vendor_id]
+    @orders = Order.all
     @order = params[:order_id]
     @status = params[:status]
-    @amount = @contracts.find(@contract).amount
+    if !@contract.nil?
+      @amount = @contracts.find(@contract).amount
+    elsif !@order.nil?
+      @amount = @orders.find(@order).unit_price*@orders.find(@order).unit_count
+    end
   end
 
   # GET /invoices/1/edit

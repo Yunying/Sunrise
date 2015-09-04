@@ -1,4 +1,4 @@
 class Order < ActiveRecord::Base
-	has_one :invoice
+	has_many :invoices
 	belongs_to :contract
 end
