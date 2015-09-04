@@ -1,0 +1,48 @@
+# encoding: utf-8
+
+<div class="panel panel-info", style="margin: 0px auto; max-width: 800px;">
+  <div class="panel-heading">新合同信息</div>
+  <div class="panel-body">
+
+    <%= form_for @contract do |f| %>
+  <div class="form-group">
+    <%= f.text_field :title, :placeholder => "合同标题", class: "form-control" %>
+    <%= error_span(@contract[:title]) %>
+  </div>
+  <div class="form-group">
+    <%= f.collection_select :client_id, @clients, :id, :name, {:prompt=>"客户公司名称"}, {:class =>"form-control", :placeholder => "客户名称"} %>
+    <%= error_span(@contract[:client_id]) %>
+  </div>
+  <div class="form-group">
+    <%= f.text_field :sign_date, :placeholder => "签订日期", class: "form-control datepicker2" %>
+    <%= error_span(@contract[:sign_date]) %>
+  </div>
+  <div class="form-group">
+    <%= f.text_area :description, :placeholder => "合同概述", class: "form-control" %>
+    <%= error_span(@contract[:description]) %>
+  </div>
+  <div class="form-group">
+    <div class="input-group">
+    <div class="input-group-addon">￥</div>
+    <%= f.number_field :amount, :placeholder => "总价", class: "form-control" %>
+    <%= error_span(@contract[:amount]) %>
+    </div>
+  </div>
+  <div style="margin-top: 20px;">
+    <%= f.button :submit, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                  contracts_path, :class => 'btn btn-default' %>
+  </div>
+<% end %>
+
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.datepicker2').datepicker({
+      format: 'yyyy/mm/dd',
+      startDate: '-3d'
+    });
+  });
+</script>

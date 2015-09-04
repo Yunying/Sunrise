@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  client_id: 1
+  sign_date: 2015-07-03
+  description: MyText
+  amount: 1.5
+
+two:
+  title: MyString
+  client_id: 1
+  sign_date: 2015-07-03
+  description: MyText
+  amount: 1.5
