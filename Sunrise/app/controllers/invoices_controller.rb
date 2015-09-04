@@ -46,7 +46,13 @@ class InvoicesController < ApplicationController
 
     respond_to do |format|
       if @invoice.save
-        format.html { redirect_to @invoice, notice: 'Invoice was successfully created.' }
+        if !@invoice.contract_id.nil?
+          format.html { redirect_to Contract.all.find(@invoice.contract_id), notice: 'Invoice was successfully created.' }
+        elsif !@invoice.order_id.nil?
+          format.html { redirect_to Contract.all.find(Order.all.find(@invoice.order_id).contract_id), notice: 'Invoice was successfully created.' }
+        else
+          format.html { redirect_to @invoice, notice: 'Invoice was successfully created.' }
+        end
         format.json { render :show, status: :created, location: @invoice }
       else
         format.html { render :new }

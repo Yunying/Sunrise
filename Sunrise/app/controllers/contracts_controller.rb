@@ -4,7 +4,7 @@ class ContractsController < ApplicationController
   # GET /contracts
   # GET /contracts.json
   def index
-    @contracts = Contract.all
+    @contracts = Contract.search(params[:search])
     @clients = Client.all
   end
 

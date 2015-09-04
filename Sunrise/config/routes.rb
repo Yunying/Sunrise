@@ -12,11 +12,15 @@ Rails.application.routes.draw do
   resources :clients
   resources :invoices
   devise_for :users, controllers: { sessions: "users/sessions" }
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-   root 'invoices#index'
+   root 'pages#index'
+   Rails.application.routes.draw do
+    get "/pages/index" => "pages#index"
+   end
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
