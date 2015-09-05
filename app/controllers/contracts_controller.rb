@@ -3,10 +3,19 @@ class ContractsController < ApplicationController
   before_action :set_contract, only: [:show, :edit, :update, :destroy]
   require "prawn"
 
+  def download_file
+    @file = Contract.find(params[:id]).file
+    send_file(
+      @file.path,
+      filename: "File.pdf",
+      type: "application/pdf"
+    )
+  end
+
   # GET /contracts
   # GET /contracts.json
   def index
-    @contracts = Contract.search(params[:search]).order(sort_column + " " + sort_direction)
+    @contracts = Contract.search(params[:search]).search_month(params[:start_month], params[:end_month]).order(sort_column + " " + sort_direction)
     @clients = Client.all
     respond_to do |format|
       format.html
@@ -34,6 +43,7 @@ class ContractsController < ApplicationController
     @invoice = @contract.invoices
     @note = Note.new
     @notes = @contract.notes
+    @file = @contract.file
   end
 
   # GET /contracts/new
@@ -67,6 +77,7 @@ class ContractsController < ApplicationController
   # PATCH/PUT /contracts/1.json
   def update
     @contract = Contract.find(params[:id])
+
     respond_to do |format|
       if @contract.update(contract_params)
         format.html { redirect_to @contract, notice: 'Contract was successfully updated.' }
@@ -96,7 +107,7 @@ class ContractsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def contract_params
-      params.require(:contract).permit(:title, :client_id, :sign_date, :description, :cost, :amount)
+      params.require(:contract).permit(:title, :client_id, :sign_date, :description, :cost, :amount, :file)
     end
 
     def sort_column

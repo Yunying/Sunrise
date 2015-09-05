@@ -24,6 +24,7 @@ gem "best_in_place"
 gem 'prawn'
 gem 'prawnto'
 gem "prawnto_2", :require => "prawnto"
+gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
 
 
 group :development, :test do

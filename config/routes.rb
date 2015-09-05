@@ -8,6 +8,9 @@ Rails.application.routes.draw do
     resources :orders
     resources :invoices
     resources :notes
+    member do 
+      get 'download_file'
+    end
   end
   resources :clients
   resources :invoices do
