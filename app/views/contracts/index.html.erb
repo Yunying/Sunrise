@@ -8,39 +8,55 @@
 </div>
 
 <div class='row' style="background-color:#EEEEEC; margin-bottom:20px;">
-  <div class="col-md-1" style="margin-top:10px;">
-    <h3>搜索</h3>
-  </div>
 
-  <div class="col-md-3" style="margin-top:28px;">
+  <div class="col-md-3 form-group" style="margin-top:28px;">
     <%= form_tag contracts_path, :method => 'get' do %>
-      <div class="col-md-8" style="padding:2px">
-          <%= text_field_tag :search, params[:search], :class=>"form-control" %>
+      <div class="col-md-7" style="padding:2px">
+          <%= text_field_tag :search, params[:search], :class=>"form-control", :placeholder=>"标题，客户……" %>
       </div>
-      <div class="col-md-4" style="padding:2px;">
-        <%= submit_tag "Search", :title => nil, :class=>"btn btn-primary form-control" %>
+      <div class="col-md-5" style="padding:2px;">
+
+        <%= submit_tag "搜索", :title => nil, :class=>"btn btn-primary form-control" %>
           
       </div>
     <% end %>
   </div>
 
-    <div class="col-md-5 form-group" style="margin-top:30px;">
+    <div class="col-md-5 form-group" style="margin-top:28px;padding:0px;">
       <%= form_tag contracts_path, :method => 'get' do %>
         <div class="col-md-4" style="padding:2px">
             <%= text_field_tag :start_month, params[:end_month], :class=>"form-control datepicker2", :placeholder=>"开始日期" %>
         </div>
         <div class="col-md-4" style="padding:2px">
-            <%= text_field_tag :end_month, params[:end_month], :class=>"form-control datepicker2", :placeholder=>"结束日期" %>
+            <%= text_field_tag :end_month, params[:end_month],:class=>"form-control datepicker2", :placeholder=>"结束日期" %>
         </div>
-        <div class="col-md-4" style="padding:2px;">
-          <%= submit_tag "按日期查找", :title => nil, :class=>"btn btn-primary form-control" %>
-            
+        <div class="col-md-3" style="padding:2px;">
+          <%= submit_tag "按日期查找", :title => nil, :class=>"btn btn-primary form-control" %>      
         </div>
       <% end %>
+
     </div>
 
-    <div class="col-md-2 form-group" style="margin-top:30px;">
+    
+
+    <div class="col-md-2 form-group" style="margin-top:10px;padding:20px; margin-left:5px;">
       <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle form-control" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              搜索其它
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+          <li><a href="/contracts">合同</a></li>
+          <li><a href="/orders">订单</a></li>
+          <li><a href="/vendors">供应商</a></li>
+          <li><a href="/clients">客户</a></li>
+        </ul>
+      </div>
+      
+    </div>
+
+    <div class="col-md-1 form-group" style="margin-top:30px;padding:0px; margin-left:5px;">
+      <div class="dropdown" style="padding:0px;">
         <button class="btn btn-default dropdown-toggle form-control" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
               生成报表
           <span class="caret"></span>

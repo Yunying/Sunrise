@@ -8,7 +8,7 @@ class Contract < ActiveRecord::Base
 
 	def self.search(search)
 	  if search
-	  	@clients = Client.all.where("name LIKE ?", "%#{search}%")
+	  	@clients = Client.all.where("id LIKE ?", "%#{search}%")
 	    @ids = @clients.pluck(:id)
 	    where("client_id IN (?) OR title LIKE ?", @ids, "%#{search}%")
 	  else
@@ -16,19 +16,18 @@ class Contract < ActiveRecord::Base
 	  end
 	end
 
-	def self.client
-		Client.all.find(:client_id)
-	end
-
 	def self.search_month(startTime, endTime)
+		
 		if startTime&&endTime
+			if endTime.empty?
+				endTime = Date.current
+			end
+			if startTime.empty?
+				startTime = "2001-01-01"
+			end
 			@startdate = Date.parse("#{startTime}")
 			@enddate = Date.parse("#{endTime}")
 			where(:sign_date => @startdate..@enddate)
-		elsif startTime && !endTime
-
-		elsif !startTime && endTime
-
 		else
 			all
 		end
