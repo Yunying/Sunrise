@@ -6,4 +6,4 @@ Rails.application.initialize!
 
 Encoding.default_internal="UTF-8"
 
-require 'pdf/writer'
+#require 'pdf/writer'

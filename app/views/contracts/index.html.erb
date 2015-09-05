@@ -48,8 +48,19 @@
       
     </div>
 
-    <div class="col-md-2" style="margin-top:30px;">
-      <%= link_to "自动报表", contracts_path(:pdf), :class=>"button btn btn-default form-control" %>
+    <div class="col-md-2 form-group" style="margin-top:30px;">
+      <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle form-control" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              生成报表
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+          <li><a href="/contracts.pdf">PDF</a></li>
+          <li><a href="/contracts.csv">CSV</a></li>
+          <li><a href="/contracts.xls">Excel</a></li>
+        </ul>
+      </div>
+      
     </div>
 
     <div class="col-md-2 form-group" style="margin-top:30px;">
