@@ -50,6 +50,8 @@ class ContractsController < ApplicationController
   def new
     @contract = Contract.new
     @clients = Client.all.order("name ASC")
+    @companies = ["JG", "SR"]
+    @newClient = Client.new
   end
 
   # GET /contracts/1/edit
@@ -107,7 +109,7 @@ class ContractsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def contract_params
-      params.require(:contract).permit(:title, :client_id, :sign_date, :description, :cost, :amount, :file)
+      params.require(:contract).permit(:title, :client_id, :sign_date, :description, :cost, :amount, :file, :company)
     end
 
     def sort_column

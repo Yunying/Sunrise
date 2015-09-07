@@ -84,6 +84,7 @@
       <th><%= "合同金额" %></th>
 
       <th>项目利润</th>
+      <th>签约公司</th>
       <th>发票状态</th>
     </tr>
   </thead>
@@ -100,6 +101,11 @@
         <td><%= @contract_amount %></td>
         <td><%= contract.amount %></td>
         <td><%= contract.amount-(contract.cost||0)-@contract_amount %></td>
+        <% if !contract.company.nil? %>
+          <td><%= contract.company %></td>
+        <% else %>
+          <td><%= "" %></td>
+        <% end %>
         <% if !contract.invoices.first.nil? %>
           <td><%= contract.invoices.first.status %></td>
         <% else %>

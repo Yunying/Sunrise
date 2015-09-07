@@ -42,5 +42,10 @@ $(document).ready(function(){
     $(".order-heading").click(function(){
         $(".order-panel").slideToggle();
     });
+
+$(".new-client-panel").hide();
+     $(".show-new-client").click(function(){
+        $(".new-client-panel").slideToggle();
+    });
 });
 
