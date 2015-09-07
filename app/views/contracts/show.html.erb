@@ -34,15 +34,17 @@
         <a href="#" class="list-group-item">订单成本￥：<%= @contract_amount %></a>
         <a href="#" class="list-group-item">其它成本￥：<%= best_in_place @contract, :cost %> </a>
         <a href="#" class="list-group-item">利润￥：<%= @contract.amount - @contract_amount - (@contract.cost || 0) %></a>
-        <% if !@file.nil? %>
-            <div href="#" class="list-group-item">附件：<%= @file %><%= link_to '下载', {:controller=>:contracts, :action=>'download_file', :id=>@contract.id},:method=>:get, :class => 'btn btn-xs btn-warning', :style=>"float:right;"  %></div>
+        <% if !@file.path.nil? %>
+            <div href="#" class="list-group-item">附件：<%= @file.path.split("/").last %><%= link_to '下载', {:controller=>:contracts, :action=>'download_file', :id=>@contract.id},:method=>:get, :class => 'btn btn-xs btn-warning', :style=>"float:right;"  %></div>
         <% end %>
       </div>
 
-      <%= form_for @contract, :html => {:multipart => true} do |at| %>
-            <%= at.file_field :file, :class=>"btn btn-default" %>
-            <%= at.submit "Upload", :class=>"btn btn-default" %>
-          <% end %>
+      <div class="row">
+        <%= form_for @contract, :html => {:multipart => true} do |at| %>
+          <%= at.file_field :file, :class=>"col-md-8"%>
+          <%= at.submit "Upload", :class=>"btn btn-default col-md-3" %>
+        <% end %>
+      </div>
     </div>
 
     <div class="col-md-4">
