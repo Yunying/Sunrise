@@ -15,7 +15,7 @@ class ContractsController < ApplicationController
   # GET /contracts
   # GET /contracts.json
   def index
-    @contracts = Contract.search(params[:search]).search_month(params[:start_month], params[:end_month]).order(sort_column + " " + sort_direction)
+    @contracts = Contract.search(params[:search]).search_month(params[:start_month], params[:end_month])
     @clients = Client.all
     respond_to do |format|
       format.html
