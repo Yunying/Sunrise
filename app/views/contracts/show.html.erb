@@ -116,15 +116,19 @@
                 
             <a class="list-group-item">订单内容：<%= f.content %> </a>
 
-            <a class="list-group-item show-vendor">供应商：<%= @vendors.find(f.vendor_id).name %> </a>
-            <% @myvendor = @vendors.find(f.vendor_id) %>
-            <div class="hidden-panel-vendor">
-              <a class="list-group-item">联系人：<%= @myvendor.contact %> </a>  
-              <a class="list-group-item">公司地址：<%= @myvendor.address %> </a>
-              <a class="list-group-item">公司邮编：<%= @myvendor.zip %> </a>  
-              <a class="list-group-item">公司电话：<%= @myvendor.telephone %> </a>  
-              <a class="list-group-item">公司邮箱：<%= @myvendor.email %> </a>  
-            </div>
+            <% if !f.vendor_id.nil? %>
+              <a class="list-group-item show-vendor">供应商：<%= @vendors.find(f.vendor_id).name %> </a>
+              <% @myvendor = @vendors.find(f.vendor_id) %>
+              <div class="hidden-panel-vendor">
+                <a class="list-group-item">联系人：<%= @myvendor.contact %> </a>  
+                <a class="list-group-item">公司地址：<%= @myvendor.address %> </a>
+                <a class="list-group-item">公司邮编：<%= @myvendor.zip %> </a>  
+                <a class="list-group-item">公司电话：<%= @myvendor.telephone %> </a>  
+                <a class="list-group-item">公司邮箱：<%= @myvendor.email %> </a>  
+              </div>
+            <% else %>
+              <a class="list-group-item">供应商：<%= "" %> </a>
+            <% end %>
 
             <a class="list-group-item"> 订单总价：<%= f.unit_price*f.unit_count %> </a>
             <div class="list-group-item list-group-item-warning">

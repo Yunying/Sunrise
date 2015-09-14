@@ -2,6 +2,8 @@ class Order < ActiveRecord::Base
 	has_many :invoices
 	belongs_to :contract
 
+	validates :vendor_id, presence: true
+
 	def self.search(search)
 	  if search
 	  	@vendors = Vendor.all.where("name LIKE ?", "%#{search}%")

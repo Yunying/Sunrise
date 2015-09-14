@@ -87,7 +87,11 @@
       <tr data-link="<%= contract_path(Contract.all.find(order.contract_id || 1)) %>">
         <td><%= order.order_id %></td>
         <td><%= order.content %></td>
-        <td><%= Vendor.all.find(order.vendor_id).name %></td>
+        <% if !order.vendor_id.nil? %>
+          <td><%= Vendor.all.find(order.vendor_id).name %></td>
+        <% else %>
+          <td><%= order.vendor_id %></td>
+        <% end %>
         <% if !order.contract_id.nil? %>
           <td><%= Contract.all.find(order.contract_id).sign_date %></td>
         <% else %>
