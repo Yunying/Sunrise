@@ -12,6 +12,14 @@
         <%= error_span(@vendor[:address]) %>
         </div>
         <div class="form-group">
+        <%= f.text_field :zip, :placeholder => "邮编", class: "form-control" %>
+        <%= error_span(@client[:zip]) %>
+        </div>
+        <div class="form-group">
+        <%= f.text_field :contact, :placeholder => "联系人", class: "form-control" %>
+        <%= error_span(@client[:contact]) %>
+        </div>
+        <div class="form-group">
         <%= f.text_field :telephone, :placeholder => "供应商电话", class: "form-control" %>
         <%= error_span(@vendor[:telephone]) %>
         </div>

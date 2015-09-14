@@ -80,9 +80,10 @@
       <th><%= "合同标题" %></th>
       <th><%= "客户公司" %></th>
       <th><%= "签约日期" %></th>
-      <th><%= "订单成本" %></th>
+      
       <th><%= "合同金额" %></th>
-
+      <th><%= "订单成本" %></th>
+      <th><%= "其它成本" %></th>
       <th>项目利润</th>
       <th>签约公司</th>
       <th>发票状态</th>
@@ -98,8 +99,10 @@
         <% contract.orders.each do |order| %>
           <% @contract_amount += order.unit_price*order.unit_count %>
         <% end %>
-        <td><%= @contract_amount %></td>
+        
         <td><%= contract.amount %></td>
+        <td><%= @contract_amount %></td>
+        <td><%= contract.cost || 0 %></td>
         <td><%= contract.amount-(contract.cost||0)-@contract_amount %></td>
         <% if !contract.company.nil? %>
           <td><%= contract.company %></td>
@@ -129,7 +132,7 @@
   $(document).ready(function(){
     $('.datepicker2').datepicker({
       format: 'yyyy/mm/dd',
-      startDate: '-3d'
+      startDate: '-1y'
     });
   });
 </script>

@@ -133,6 +133,11 @@
   background-color:#F2EADD;
 }
 
+
+.hidden-panel-vendor .list-group-item {
+  background-color:#F2EADD;
+}
+
 .hidden-invoice-panel .list-group-item {
   background-color:#F2EADD;
 }

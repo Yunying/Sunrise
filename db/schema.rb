@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150907220557) do
+ActiveRecord::Schema.define(version: 20150914224135) do
 
   create_table "clients", force: :cascade do |t|
     t.string   "name"
@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(version: 20150907220557) do
     t.string   "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "zip"
+    t.string   "contact"
   end
 
 # Could not dump table "contracts" because of following NoMethodError
@@ -37,6 +39,8 @@ ActiveRecord::Schema.define(version: 20150907220557) do
     t.integer  "vendor_id"
     t.integer  "contract_id"
     t.integer  "order_id"
+    t.string   "contact"
+    t.string   "zip"
   end
 
   create_table "notes", force: :cascade do |t|
@@ -85,6 +89,8 @@ ActiveRecord::Schema.define(version: 20150907220557) do
     t.string   "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "zip"
+    t.string   "contact"
   end
 
 end

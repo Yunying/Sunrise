@@ -22,17 +22,19 @@
         <a class="list-group-item active">
           基本信息
         </a>
-        <a href="#" class="list-group-item">合同名称：<%= best_in_place @contract, :title %></a>
+        <a class="list-group-item">合同名称：<%= best_in_place @contract, :title %></a>
         <a class="list-group-item show_client">客户公司：<%= @client.name %></a>
         <div class="hidden-panel">
+          <a class="list-group-item">联系人：<%= @client.contact %> </a>  
           <a class="list-group-item">公司地址：<%= @client.address %> </a>
+          <a class="list-group-item">公司邮编：<%= @client.zip %> </a>  
           <a class="list-group-item">公司电话：<%= @client.telephone %> </a>  
           <a class="list-group-item">公司邮箱：<%= @client.email %> </a>  
         </div>
         <a href="#" class="list-group-item">签约日期：<%= @contract.sign_date %></a>
         <a href="#" class="list-group-item">合同金额￥：<%= best_in_place @contract, :amount %></a>
         <a href="#" class="list-group-item">订单成本￥：<%= @contract_amount %></a>
-        <a href="#" class="list-group-item">其它成本￥：<%= best_in_place @contract, :cost %> </a>
+        <a class="list-group-item">其它成本￥：<%= best_in_place @contract, :cost %> </a>
         <a href="#" class="list-group-item">利润￥：<%= @contract.amount - @contract_amount - (@contract.cost || 0) %></a>
         <% if !@file.path.nil? %>
             <div href="#" class="list-group-item">附件：<%= @file.path.split("/").last %><%= link_to '下载', {:controller=>:contracts, :action=>'download_file', :id=>@contract.id},:method=>:get, :class => 'btn btn-xs btn-warning', :style=>"float:right;"  %></div>
@@ -113,7 +115,17 @@
             </div>
                 
             <a class="list-group-item">订单内容：<%= f.content %> </a>
-            <a class="list-group-item">供应商：<%= @vendors.find(f.vendor_id).name %> </a>
+
+            <a class="list-group-item show-vendor">供应商：<%= @vendors.find(f.vendor_id).name %> </a>
+            <% @myvendor = @vendors.find(f.vendor_id) %>
+            <div class="hidden-panel-vendor">
+              <a class="list-group-item">联系人：<%= @myvendor.contact %> </a>  
+              <a class="list-group-item">公司地址：<%= @myvendor.address %> </a>
+              <a class="list-group-item">公司邮编：<%= @myvendor.zip %> </a>  
+              <a class="list-group-item">公司电话：<%= @myvendor.telephone %> </a>  
+              <a class="list-group-item">公司邮箱：<%= @myvendor.email %> </a>  
+            </div>
+
             <a class="list-group-item"> 订单总价：<%= f.unit_price*f.unit_count %> </a>
             <div class="list-group-item list-group-item-warning">
               订单发票

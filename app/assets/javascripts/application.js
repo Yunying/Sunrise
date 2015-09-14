@@ -39,6 +39,13 @@ $(document).ready(function(){
 });
 
 $(document).ready(function(){
+    $(".hidden-panel-vendor").hide();
+    $(".show-vendor").click(function(){
+        $(".hidden-panel-vendor").slideToggle();
+    });
+});
+
+$(document).ready(function(){
     $(".order-heading").click(function(){
         $(".order-panel").slideToggle();
     });
