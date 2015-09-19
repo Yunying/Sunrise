@@ -5,3 +5,5 @@ require File.expand_path('../application', __FILE__)
 Rails.application.initialize!
 
 Encoding.default_internal="UTF-8"
+
+#require 'pdf/writer'

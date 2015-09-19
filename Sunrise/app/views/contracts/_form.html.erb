@@ -5,14 +5,23 @@
   <div class="panel-body">
 
     <%= form_for @contract do |f| %>
-  <div class="form-group">
-    <%= f.text_field :title, :placeholder => "合同标题", class: "form-control" %>
-    <%= error_span(@contract[:title]) %>
-  </div>
-  <div class="form-group">
-    <%= f.collection_select :client_id, @clients, :id, :name, {:prompt=>"客户公司名称"}, {:class =>"form-control", :placeholder => "客户名称"} %>
+
+    <div class="form-inline form-group">
+    <%= f.collection_select :client_id, @clients, :id, :name, {:prompt=>"客户公司名称"}, {:class=>"form-control", :style=>"width:70%;", :placeholder => "客户名称"} %>
+
+    <%= link_to "添加新客户", new_client_path, :class=>"btn btn-default form-control", :style=>"width:28%;float:right;" %>
+
     <%= error_span(@contract[:client_id]) %>
   </div>
+
+  <div class="form-inline form-group">
+    <%= f.text_field :title, :placeholder => "合同号", :class=>"form-control", :style=>"width:70%;" %>
+    <%= f.select :company, @companies, {:prompt=>"签约公司"}, {:class =>"form-control", :style=>"width:28%; float:right;"} %>
+    <%= error_span(@contract[:title]) %>
+  </div>
+
+  
+
   <div class="form-group">
     <%= f.text_field :sign_date, :placeholder => "签订日期", class: "form-control datepicker2" %>
     <%= error_span(@contract[:sign_date]) %>
@@ -42,7 +51,7 @@
   $(document).ready(function(){
     $('.datepicker2').datepicker({
       format: 'yyyy/mm/dd',
-      startDate: '-3d'
+      startDate: '-1y'
     });
   });
 </script>

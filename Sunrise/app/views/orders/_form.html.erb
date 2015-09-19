@@ -5,6 +5,15 @@
   <div class="panel-body">
 
     <%= form_for @order do |f| %>
+
+      <div class="form-inline form-group">
+        <%= f.collection_select :vendor_id, @vendors, :id, :name, {:prompt=>"供应商名称"}, {:class=>"form-control", :style=>"width:70%;", :placeholder => "供应商名称"} %>
+
+        <%= link_to "添加新供应商", new_vendor_path, :class=>"btn btn-default form-control", :style=>"width:28%;float:right;" %>
+        <%= error_span(@order[:client_id]) %>
+      </div>
+
+
     <% if !@contract.nil? %>
       <div class="form-group">
         <%= f.collection_select :contract_id, @contracts, :id, :title, {:prompt=>true, :selected=>@contract}, {:class =>"form-control"} %>
@@ -16,14 +25,15 @@
         <%= error_span(@order[:contract_id]) %>
       </div>
     <% end %>
+
+
   <div class="form-group">
     <%= f.text_field :order_id, :placeholder => "订单号", class: "form-control" %>
     <%= error_span(@order[:order_id]) %>
   </div>
-  <div class="form-group">
-    <%= f.collection_select :vendor_id, @vendors, :id, :name, {:prompt=>"供应商名称"}, {:class =>"form-control"} %>
-    <%= error_span(@order[:client_id]) %>
-  </div>
+
+
+
   <div class="form-group">
     <%= f.text_area :content, :placeholder => "订单内容", class: "form-control" %>
     <%= error_span(@order[:content]) %>

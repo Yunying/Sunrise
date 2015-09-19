@@ -19,7 +19,7 @@
   </thead>
   <tbody>
     <% @vendors.each do |vendor| %>
-      <tr>
+      <tr data-link="<%= vendor_path(vendor) %>">
         <td><%= link_to vendor.id, vendor_path(vendor) %></td>
         <td><%= vendor.name %></td>
         <td><%= vendor.address %></td>

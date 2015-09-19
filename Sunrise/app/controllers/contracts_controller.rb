@@ -1,11 +1,32 @@
 class ContractsController < ApplicationController
+  helper_method :sort_column, :sort_direction
   before_action :set_contract, only: [:show, :edit, :update, :destroy]
+  require "prawn"
+
+  def download_file
+    @file = Contract.find(params[:id]).file
+    send_file(
+      @file.path,
+      filename: "File.pdf",
+      type: "application/pdf"
+    )
+  end
 
   # GET /contracts
   # GET /contracts.json
   def index
-    @contracts = Contract.search(params[:search])
+    @contracts = Contract.search(params[:search]).search_month(params[:start_month], params[:end_month]).order(sort_column + " " + sort_direction).paginate(:page => params[:page], :per_page => 5)
     @clients = Client.all
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = Prawn::Document.new
+        pdf.text "Hello World"
+        send_data pdf.render, :filename => 'products.pdf', :type => 'application/pdf', :disposition => 'inline'
+      end
+      format.csv {render text: @contracts.to_csv}
+      format.xls #do { send_data @contracts.to_csv(col_sep: "\t") }
+    end
   end
 
   # GET /contracts/1
@@ -22,12 +43,15 @@ class ContractsController < ApplicationController
     @invoice = @contract.invoices
     @note = Note.new
     @notes = @contract.notes
+    @file = @contract.file
   end
 
   # GET /contracts/new
   def new
     @contract = Contract.new
     @clients = Client.all.order("name ASC")
+    @companies = ["JG", "SR"]
+    @newClient = Client.new
   end
 
   # GET /contracts/1/edit
@@ -55,6 +79,7 @@ class ContractsController < ApplicationController
   # PATCH/PUT /contracts/1.json
   def update
     @contract = Contract.find(params[:id])
+
     respond_to do |format|
       if @contract.update(contract_params)
         format.html { redirect_to @contract, notice: 'Contract was successfully updated.' }
@@ -84,6 +109,14 @@ class ContractsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def contract_params
-      params.require(:contract).permit(:title, :client_id, :sign_date, :description, :cost, :amount)
+      params.require(:contract).permit(:title, :client_id, :sign_date, :description, :cost, :amount, :file, :company)
+    end
+
+    def sort_column
+      Contract.column_names.include?(params[:sort]) ? params[:sort] : "title"
+    end
+    
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
     end
 end

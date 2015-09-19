@@ -4,7 +4,7 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.all
+    @orders = Order.all.search(params[:search]).search_month(params[:start_month], params[:end_month]).order(sort_column + " " + sort_direction)
   end
 
   # GET /orders/1
@@ -81,5 +81,13 @@ class OrdersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
       params.require(:order).permit(:order_id, :contract_id, :vendor_id, :unit_price, :unit_count, :amount, :content)
+    end
+
+    def sort_column
+      Order.column_names.include?(params[:sort]) ? params[:sort] : "order_id"
+    end
+    
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
     end
 end

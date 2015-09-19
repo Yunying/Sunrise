@@ -23,6 +23,8 @@
               </div>
               <div class="form-group">
                 <%= f.text_field :vendor_id, :value => Vendor.all.find(@vendor).name, :readonly => true, class: "form-control" %>
+                <%= f.hidden_field :vendor_id, :value => @vendor %>
+                <%= f.hidden_field :status, :value => @status %>
                 <%= error_span(@invoice[:vendor_id]) %>
               </div>
 
@@ -61,7 +63,7 @@
   $(document).ready(function(){
     $('.datepicker2').datepicker({
       format: 'yyyy/mm/dd',
-      startDate: '-3d'
+      startDate: '-1y'
     });
   });
 </script>

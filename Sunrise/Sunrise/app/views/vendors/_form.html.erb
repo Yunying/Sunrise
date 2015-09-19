@@ -1,0 +1,30 @@
+<div class="panel panel-default", style="margin: 0px auto; max-width: 800px;">
+  <div class="panel-heading">新供应商</div>
+    <div class="panel-body">
+
+      <%= form_for @vendor do |f| %>
+        <div class="form-group">
+        <%= f.text_field :name, :placeholder => "供应商名称", class: "form-control" %>
+        <%= error_span(@vendor[:name]) %>
+        </div>
+        <div class="form-group">
+        <%= f.text_field :address, :placeholder => "供应商地址", class: "form-control" %>
+        <%= error_span(@vendor[:address]) %>
+        </div>
+        <div class="form-group">
+        <%= f.text_field :telephone, :placeholder => "供应商电话", class: "form-control" %>
+        <%= error_span(@vendor[:telephone]) %>
+        </div>
+        <div class="form-group">
+        <%= f.email_field :email, :placeholder => "供应商Email", class: "form-control" %>
+        <%= error_span(@vendor[:email]) %>
+        </div>
+        <div style="margin-top: 20px;">
+          <%= f.button :submit, :class => 'btn btn-primary' %>
+          <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                        vendors_path, :class => 'btn btn-default' %>
+        </div>
+      <% end %>
+
+    </div>
+</div>

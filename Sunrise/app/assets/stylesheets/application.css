@@ -112,8 +112,8 @@
 .btn-register:hover,
 .btn-register:focus {
   color: #fff;
-  background-color: #1CA347;
-  border-color: #1CA347;
+  background-color: #fff;
+  border-color: #fff;
 }
 
 .index-content{
@@ -130,6 +130,11 @@
 }
 
 .hidden-panel .list-group-item {
+  background-color:#F2EADD;
+}
+
+
+.hidden-panel-vendor .list-group-item {
   background-color:#F2EADD;
 }
 
