@@ -1,0 +1,30 @@
+<%- model_class = Order -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong>订单名称</strong></dt>
+  <dd><%= @order.order_id %></dd>
+  <dt><strong>订单内容</strong></dt>
+  <dd><%= @order.content %></dd>
+  <dt><strong>供应商</strong></dt>
+  <dd><%= @vendors.find(@order.vendor_id).name %></dd>
+  <dt><strong>物品单价</strong></dt>
+  <dd><%= @order.unit_price %></dd>
+  <dt><strong>物品数量</strong></dt>
+  <dd><%= @order.unit_count %></dd>
+  <dt><strong>订单总价</strong></dt>
+  <dd><%= @order.unit_count*@order.unit_price %></dd>
+  
+</dl>
+
+<%= link_to t('.back', :default => t("helpers.links.back")),
+              orders_path, :class => 'btn btn-default'  %>
+<%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_order_path(@order), :class => 'btn btn-default' %>
+<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              order_path(@order),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>

@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">合同标题</Data></Cell>
+        <Cell><Data ss:Type="String">客户公司</Data></Cell>
+        <Cell><Data ss:Type="String">签约日期</Data></Cell>
+        <Cell><Data ss:Type="String">订单成本</Data></Cell>
+        <Cell><Data ss:Type="String">其它成本</Data></Cell>
+        <Cell><Data ss:Type="String">合同金额</Data></Cell>
+        <Cell><Data ss:Type="String">项目利润</Data></Cell>
+        <Cell><Data ss:Type="String">开票日期</Data></Cell>
+        <Cell><Data ss:Type="String">发票号码</Data></Cell>
+      </Row>
+    <% @contracts.each do |contract| %>
+      <Row>
+        <Cell><Data ss:Type="String"><%= contract.title %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= Client.all.find(contract.client_id).name %></Data></Cell>
+        
+        <Cell><Data ss:Type="String"><%= contract.sign_date %></Data></Cell>
+        <% @contract_amount = 0 %>
+        <% contract.orders.each do |order| %>
+          <% @contract_amount += order.unit_price*order.unit_count %>
+        <% end %>
+        <Cell><Data ss:Type="String"><%= @contract_amount %></Data></Cell>
+
+        <Cell><Data ss:Type="String"><%= contract.cost %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= contract.amount %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= contract.amount - (contract.cost || 0) - @contract_amount %></Data></Cell>
+        <% if !contract.invoices.first.nil? %>
+          <Cell><Data ss:Type="String"><%= contract.invoices.first.invoice_date %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= contract.invoices.first.invoice_number %></Data></Cell>
+        <% else %>
+          <Cell><Data ss:Type="String"><%= "未知" %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= "未知" %></Data></Cell>
+        <% end %>
+      </Row>
+    <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>

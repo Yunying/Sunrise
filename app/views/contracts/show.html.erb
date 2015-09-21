@@ -1,0 +1,170 @@
+
+<div >
+  <div class="index-content">
+    <div class="page-header row">
+      <h1 class="col-md-4">
+          <%= @contract.title %>
+      </h1>
+      <div class="col-md-4"> </div>
+      <div class="col-md-4" style="position:relative; bottom:0px;">
+        <%= link_to "返回合同列表", contracts_path, :class=> "button btn btn-default", :style=>"float:right; margin-right:20px; margin-top:30px;" %>
+        <%= link_to t('.destroy', :default => t("删除合同")),
+                  contract_path(@contract),
+                  :method => 'delete',
+                  :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                  :class => 'btn btn-danger', :style=>"float:right;margin-right:20px;margin-top:30px;" %>
+      </div>
+    </div>
+
+  <div class="row" style="margin-bottom=20px;">
+    <div class="col-md-4">
+      <div class="list-group" style="max-width:300px;">
+        <a class="list-group-item active">
+          基本信息
+        </a>
+        <a class="list-group-item">合同名称：<%= best_in_place @contract, :title %></a>
+        <a class="list-group-item show_client">客户公司：<%= @client.name %></a>
+        <div class="hidden-panel">
+          <a class="list-group-item">联系人：<%= @client.contact %> </a>  
+          <a class="list-group-item">公司地址：<%= @client.address %> </a>
+          <a class="list-group-item">公司邮编：<%= @client.zip %> </a>  
+          <a class="list-group-item">公司电话：<%= @client.telephone %> </a>  
+          <a class="list-group-item">公司邮箱：<%= @client.email %> </a>  
+        </div>
+        <a href="#" class="list-group-item">签约日期：<%= @contract.sign_date %></a>
+        <a href="#" class="list-group-item">合同金额￥：<%= best_in_place @contract, :amount %></a>
+        <a href="#" class="list-group-item">订单成本￥：<%= @contract_amount %></a>
+        <a class="list-group-item">其它成本￥：<%= best_in_place @contract, :cost %> </a>
+        <a href="#" class="list-group-item">利润￥：<%= @contract.amount - @contract_amount - (@contract.cost || 0) %></a>
+        <% if !@file.path.nil? %>
+            <div href="#" class="list-group-item">附件：<%= @file.path.split("/").last %><%= link_to '下载', {:controller=>:contracts, :action=>'download_file', :id=>@contract.id},:method=>:get, :class => 'btn btn-xs btn-warning', :style=>"float:right;"  %></div>
+        <% end %>
+      </div>
+
+      <div class="row">
+        <%= form_for @contract, :html => {:multipart => true} do |at| %>
+          <%= at.file_field :file, :class=>"col-md-8"%>
+          <%= at.submit "Upload", :class=>"btn btn-default col-md-3" %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="list-group" style="max-width:300px;">
+        <a class="list-group-item active">
+          发票信息
+        </a>
+        <% @invoice.each do |f| %>
+          <div class="list-group-item show-invoice">
+            发票号码：<%= f.invoice_number %>
+            <%= link_to "删除", {:controller=>:invoices, :action=>'destroy', :id=>f.id}, :method=>:delete, :class => 'btn btn-xs btn-danger', :style=>"float:right;" %>
+          </div>
+          <div class="hidden-invoice-panel">
+            <a class="list-group-item">发票金额：<%= f.total_number %> </a>
+            <a class="list-group-item">开票日期：<%= f.invoice_date %> </a>
+            <div class="list-group-item">
+              状态：<%= f.status %>
+              <% if f.status == PENDING_CONTRACT_STATUS %>
+                <%= link_to "付款", 
+                  {:controller=>:invoices, :action=>'update_status', :id=>f.id}, 
+                  :method=>:put, :class => 'btn btn-xs btn-warning', :style=>"float:right;" %>
+              <% end %>
+            </div>  
+          </div>
+        <% end %>
+      </div>
+      <%= link_to "开发票", new_invoice_path(:contract_id => @contract.id, :type => CONTRACT_INVOICE, :status => PENDING_CONTRACT_STATUS, :client_id => @client.id), :class => "button btn btn-primary"%><br />
+    </div>
+
+    <div class="col-md-4">
+      <div class="list-group" style="max-width:300px;">
+        <a class="list-group-item active">
+          备注
+        </a>
+
+        <% @notes.each do |note| %>
+          <div class="list-group-item">
+            <a><%= note.content %></a>
+            <%= link_to "删除", {:controller=>:notes, :action=>'destroy', :id=>note.id}, :method=>:delete, :class => 'btn btn-xs btn-danger', :style=>"float:right;" %>
+          </div>
+        <% end %>
+
+        <a class="list-group-item">
+          <div class="input-group" style="width:250px;">
+            <%= form_for @note do |f| %>
+              <%= f.text_field :content, :class=>"form-control note-input" %>
+              <%= f.hidden_field :contract_id, :value=>@contract.id %>
+              <%= f.button "添加备注", :class => 'btn btn-primary', :style=>"margin-top:10px; margin-left:180px;" %>
+            <% end %>
+
+          </div>
+        </a>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div style="margin-top:20px;" class="row">
+      <% @orders.each do |f| %>
+        <div class="col-md-4">
+          <div class="list-group">
+            <div class="list-group-item list-group-item-info">
+              订单号： <%= f.order_id %>
+              <%= link_to "删除", {:controller=>:orders, :action=>'destroy', :id=>f.id}, :method=>:delete, :class => 'btn btn-xs btn-danger', :style=>"float:right;" %>
+            </div>
+                
+            <a class="list-group-item">订单内容：<%= f.content %> </a>
+
+            <% if !f.vendor_id.nil? %>
+              <a class="list-group-item show-vendor">供应商：<%= @vendors.find(f.vendor_id).name %> </a>
+              <% @myvendor = @vendors.find(f.vendor_id) %>
+              <div class="hidden-panel-vendor">
+                <a class="list-group-item">联系人：<%= @myvendor.contact %> </a>  
+                <a class="list-group-item">公司地址：<%= @myvendor.address %> </a>
+                <a class="list-group-item">公司邮编：<%= @myvendor.zip %> </a>  
+                <a class="list-group-item">公司电话：<%= @myvendor.telephone %> </a>  
+                <a class="list-group-item">公司邮箱：<%= @myvendor.email %> </a>  
+              </div>
+            <% else %>
+              <a class="list-group-item">供应商：<%= "" %> </a>
+            <% end %>
+
+            <a class="list-group-item"> 订单总价：<%= f.unit_price*f.unit_count %> </a>
+            <div class="list-group-item list-group-item-warning">
+              订单发票
+              <%= link_to "添加一张发票", new_invoice_path(:order_id => f.id, :type => ORDER_INVOICE, :status => PENDING_ORDER_STATUS, :vendor_id => f.vendor_id), :class => "button btn btn-xs btn-primary", :style=>"float:right;"  %><br />
+            </div>
+                
+            <% f.invoices.each do |invoice| %>
+              <div class="list-group-item">
+                发票号码：<%= invoice.invoice_number %>
+                <%= link_to "删除", {:controller=>:invoices, :action=>'destroy', :id=>invoice.id}, :method=>:delete, :class => 'btn btn-xs btn-danger', :style=>"float:right;" %>
+              </div>
+              <a class="list-group-item">发票金额：<%= invoice.total_number %></a>
+              <a class="list-group-item">开票日期：<%= invoice.invoice_date %></a>
+              <div class="list-group-item">发票状态：<%= invoice.status %>
+                <% if invoice.status == PENDING_ORDER_STATUS %>
+                <%= link_to "收款", 
+                  {:controller=>:invoices, :action=>'update_status', :id=>invoice.id}, 
+                  :method=>:put, :class => 'btn btn-xs btn-warning', :style=>"float:right;"%>
+              <% end %>
+              </div>
+            <% end %>
+                
+          </div>
+        </div>
+      <% end %>
+
+    <div class="col-md-4">
+      <%= link_to "添加一张订单", new_order_path(:contract_id => @contract.id), :class => "button btn btn-primary"  %><br />
+    </div>
+</div>
+
+<script>
+$(document).ready(function() {
+  /* Activating Best In Place */
+  jQuery(".best_in_place").best_in_place();
+});
+</script>
+

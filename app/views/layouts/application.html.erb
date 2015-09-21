@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<div style="background-color:#FFFFFF;">
+<head>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+	
+	<nav class="navbar navbar-inverse">
+	  <div class="container-fluid">
+	    <div class="navbar-header">
+	      <a class="navbar-brand" href="/">Sunrise</a>
+	    </div>
+	    <div>
+	      <ul class="nav navbar-nav">
+	        <li class="active"><a href="/contracts">Home</a></li>
+	        <li><a href="/contracts">Contracts</a></li> 
+	        <li class="dropdown">
+	          <a href="#" class="dropdown-toggle mouseover-show" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Indexes<span class="caret"></span></a>
+	          <ul class="dropdown-menu mouseover-dropdown">
+	          	<li><a href="/invoices">Invoices</a></li>
+	          	<li><a href="/orders">Orders</a></li>
+	            <li><a href="/clients">Client</a></li>
+	            <li><a href="/vendors">Vendor</a></li>
+	            <li><a href="/clients">Clients</a></li> 
+	          </ul>
+	        </li> 
+	        <li class="dropdown">
+	          <a href="#" class="dropdown-toggle mouseover-show2" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">New...<span class="caret"></span></a>
+	          <ul class="dropdown-menu mouseover-dropdown2">
+	          	<li><a href="/contracts/new">Contract</a></li>
+	            <li><a href="/clients/new">Client</a></li>
+	            <li><a href="/vendors/new">Vendor</a></li>
+	          </ul>
+	        </li>	        
+	      </ul>
+	      <ul class="nav navbar-nav navbar-right">
+	        <li>
+	          <%= link_to "Log out", destroy_user_session_path, :method => :delete%>
+	        </li>
+	      </ul>
+	    </div>
+	  </div>
+	</nav>
+</body>
+<%= yield %>
+</div>
+</html>
