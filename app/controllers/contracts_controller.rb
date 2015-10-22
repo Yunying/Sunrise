@@ -21,7 +21,7 @@ class ContractsController < ApplicationController
       format.html
       format.pdf do
         pdf = Prawn::Document.new
-        pdf.text "Hello World"
+        # TODO
         send_data pdf.render, :filename => 'products.pdf', :type => 'application/pdf', :disposition => 'inline'
       end
       format.csv {render text: @contracts.to_csv}
